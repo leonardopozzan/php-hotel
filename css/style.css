@@ -6,3 +6,6 @@
 img{
     max-width: 100%;
 }
+.my-col{
+    width: calc(100% / 5);
+}
