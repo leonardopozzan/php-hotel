@@ -3,48 +3,48 @@ $hotels = [
 
     [
         'name' => 'Hotel Belvedere',
-        'description' => 'Hotel Belvedere Descrizione',
+        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae veritatis et culpa labore omnis id laborum ad earum totam animi, nam cumque aliquid exercitationem dolorem assumenda officiis. Impedit, facere velit!',
         'parking' => true,
         'vote' => 4,
         'distance_to_center' => 10.4
     ],
     [
         'name' => 'Hotel Futuro',
-        'description' => 'Hotel Futuro Descrizione',
+        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae veritatis et culpa labore omnis id laborum ad earum totam animi, nam cumque aliquid exercitationem dolorem assumenda officiis. Impedit, facere velit!',
         'parking' => true,
         'vote' => 2,
         'distance_to_center' => 2
     ],
     [
         'name' => 'Hotel Rivamare',
-        'description' => 'Hotel Rivamare Descrizione',
+        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae veritatis et culpa labore omnis id laborum ad earum totam animi, nam cumque aliquid exercitationem dolorem assumenda officiis. Impedit, facere velit!',
         'parking' => false,
         'vote' => 1,
         'distance_to_center' => 1
     ],
     [
         'name' => 'Hotel Bellavista',
-        'description' => 'Hotel Bellavista Descrizione',
+        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae veritatis et culpa labore omnis id laborum ad earum totam animi, nam cumque aliquid exercitationem dolorem assumenda officiis. Impedit, facere velit!',
         'parking' => false,
         'vote' => 5,
         'distance_to_center' => 5.5
     ],
     [
         'name' => 'Hotel Milano',
-        'description' => 'Hotel Milano Descrizione',
+        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae veritatis et culpa labore omnis id laborum ad earum totam animi, nam cumque aliquid exercitationem dolorem assumenda officiis. Impedit, facere velit!',
         'parking' => true,
         'vote' => 2,
         'distance_to_center' => 50
     ],
 ];
-if(isset($_GET['parking']) && empty($_GET['parking'])){
+if(isset($_GET['parking']) && !empty($_GET['parking'])){
     if($_GET['parking'] == 'park'){
         $hotels = array_filter($hotels, fn($value)=> $value['parking']);
     }else{
         $hotels = array_filter($hotels, fn($value)=> !$value['parking']);
     };
 };
-if(isset($_GET['vote']) && empty($_GET['vote'])){
+if(isset($_GET['vote']) && !empty($_GET['vote'])){
     $hotels = array_filter($hotels, fn($value)=> $value['vote'] >= $_GET['vote']);
 };
 ?>
@@ -59,7 +59,6 @@ if(isset($_GET['vote']) && empty($_GET['vote'])){
     <link rel='stylesheet' href='./CSS/style.css'>
     <script src='https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js'></script>
     <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
-    <script src='./JS/script.js' defer></script>
     <title>Document</title>
 </head>
 
@@ -85,10 +84,19 @@ if(isset($_GET['vote']) && empty($_GET['vote'])){
             <?php foreach($hotels as $key => $hotel){ 
                 $park = $hotel['parking'] ? 'avaliable' : 'unavailable'
             ?>
-                <div class="col">
-                    <?php foreach($hotel as $key => $value){  ?> 
-                    <div><?php echo $key . $value  ?></div>
-                    <?php }  ?>
+                <div class="my-col">
+                    <div class="img-box"><img src="https://picsum.photos/200/300?random=<?php echo $key  ?>"></div>
+                    <div class="title"><?php echo $hotel['name']  ?></div>
+                    <div class="sub-title">Description:</div>
+                    <div class="info"><?php echo $hotel['description']  ?></div>
+                    
+                    <div><span class="sub-title"> Parking</span> <?php echo $park  ?></div>
+                    <div>
+                        <?php for($i = 0; $i <= $hotel['vote']; $i++){
+                        echo '<i class="fa-solid fa-star text-warning"></i>';
+                        }  ?>
+                        <span class="vote"><?php echo $hotel['vote']  ?>/5</span>
+                    </div>
                 </div>
                 <?php }  ?>
         </div>
