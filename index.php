@@ -36,8 +36,23 @@ $hotels = [
         'vote' => 2,
         'distance_to_center' => 50
     ],
-
 ];
+if(isset($_GET['parking']) && $_GET['parking'] != '' && isset($_GET['vote']) && $_GET['vote'] != ''){
+    if($_GET['parking'] == 'park'){
+        $hotels = array_filter($hotels, fn($value)=> $value['parking'] && $value['vote'] >= $_GET['vote']);
+    }else{
+        $hotels = array_filter($hotels, fn($value)=> !$value['parking'] && $value['vote'] >= $_GET['vote']);
+    };
+    
+}elseif(isset($_GET['parking']) && $_GET['parking'] != ''){
+    if($_GET['parking'] == 'park'){
+        $hotels = array_filter($hotels, fn($value)=> $value['parking']);
+    }else{
+        $hotels = array_filter($hotels, fn($value)=> !$value['parking']);
+    };
+}elseif(isset($_GET['vote']) && $_GET['vote'] != ''){
+    $hotels = array_filter($hotels, fn($value)=> $value['vote'] >= $_GET['vote']);
+}
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -56,7 +71,23 @@ $hotels = [
 
 <body>
     <div class="container">
-        <div class="row">
+        <form action="index.php" class="pt-5">
+            <select name="parking">
+                <option value="" selected>Scegli</option>
+                <option value="park">Parking</option>
+                <option value="noPark">No Parking</option>
+            </select>
+            <select name="vote">
+                <option value="" selected>Scegli</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button>Filtra</button>
+        </form>
+        <div class="row pt-5">
             <?php foreach($hotels as $key => $hotel){ 
                 $park = $hotel['parking'] ? 'avaliable' : 'unavailable'
             ?>
