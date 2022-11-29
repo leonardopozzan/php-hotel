@@ -6,6 +6,31 @@
 img{
     max-width: 100%;
 }
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
 .my-col{
-    width: calc(100% / 5);
+    width: calc(100% / 5 - 0.5rem);
+    background-color: rgb(190, 255, 206);
+    padding: 0.5rem;
+    margin: 0.25rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+.img-box{
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.title{
+    font-size: 1.7rem;
+    font-weight: bold;  
+}
+.sub-title{
+    font-size: 1.1rem;
+}
+.info{
+    font-size: 0.9rem;
+}
+select{
+    padding: 0.3rem 1.5rem;
 }
